@@ -1,0 +1,33 @@
+.main-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%
+}
+
+.logo {
+    padding: 7px;
+}
+
+#toast-container {
+    top: 70px;
+}
+
+#user-menu {
+    padding-bottom: 0px;
+}
+
+.user-menu {
+    bottom: 0px;
+}
+/*
+.row{
+    background-color: red;
+}
+
+.col-md-6{
+    background-color: blue;
+}
+
+.col-md-2{
+    background-color: chartreuse;
+}*/

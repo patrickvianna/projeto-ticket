@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "production": "pm2 start loader.js --name backend"
   },
-  "author": "Leonardo Leitão",
+  "author": "Patrick Vianna",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -17,8 +17,7 @@
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.2",
     "node-restful": "^0.2.5",
-    "pm2": "^2.1.5",
-    "request": "^2.83.0"
+    "pm2": "^2.1.5"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

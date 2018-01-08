@@ -1,0 +1,10 @@
+<div class="jumbotron" ng-controller="NewTicket as nTicketC"><form name="contatoForm"><h2>Insira um Ticket</h2><input class="form-control" type="text" ng-model="ticket.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"> Severidade:<select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="nTicketC.ticket.idSeveridade" ng-required="true"><option ng-repeat="option in severidade.availableOptions" value="{{option.model}}">{{option.severidade}}</option></select></form><textarea class="form-control" ng-model="nTicketC.ticket.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500"></textarea><!--div ng-show="contatoForm.title.$error.required && contatoForm.title.$edirty" class="alert alert-danger">
+		Por favor, preencha o nome!
+	</div>
+	<div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
+		No minimo 10 caracteres
+	</div>
+
+	<div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
+		Por favor, preencha o telefone!
+	</div--> <a class="btn btn-primary btn-sm" ui-sref="ticketList">Voltar</a> <button class="btn btn-primary btn-block" ng-click="nTicketC.setTicket()">Adicionar Ticket</button><!-- ng-disabled="!contatoForm.$valid"--></div>
