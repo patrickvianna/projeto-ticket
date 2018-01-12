@@ -16,8 +16,8 @@
                 if (err) {
                     Msg.addError(err.data)
                 } else {
-                    Msg.addSucess('Logado com sucesso!')
                     $location.path('/ticketList')
+                    Msg.addSucess('Bem-vindo', 'Logado com sucesso!')
                 }
             })
         }

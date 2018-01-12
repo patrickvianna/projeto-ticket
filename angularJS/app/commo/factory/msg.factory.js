@@ -10,8 +10,8 @@
             }
         }
 
-        function addSucess(msgs) {
-            addMsg(msgs, 'Sucesso', 'success')
+        function addSucess(msgs, titulo = 'Sucesso') {
+            addMsg(msgs, titulo, 'success')
         }
 
         function addError(msgs) {

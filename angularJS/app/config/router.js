@@ -10,6 +10,9 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         }).state('login', {
             url: "/login",
             templateUrl: "template/login.html"
+        }).state('ticketDetalhe', {
+            url:'/detalhe-ticket/:idTicketRota', 
+            templateUrl: 'template/ticket.detail.html'
         })
 
         //$urlRouterProvider.otherwise('/ticketList')
@@ -21,14 +24,15 @@ angular.module('myApp').config(['$stateProvider', '$urlRouterProvider', '$httpPr
         validateUser()
         $rootScope.$on('$locationChangeStart', () => validateUser())
 
+        
         function validateUser() {
             const user = auth.getUser()
             const authPage = '/auth.html'
             const isAuthPage = $window.location.href.includes(authPage)
             
-            if(!user && !isAuthPage) {
+            if(!user && !isAuthPage) {                
                 $window.location.href = authPage
-            } else if (user && !user.isValid) {
+            } else if (user && !user.isValid) {                
                 auth.validateToken(user.token, (err, valid) => {
                     if(!valid) {
                         $window.location.href = authPage

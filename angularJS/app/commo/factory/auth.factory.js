@@ -21,6 +21,7 @@
             submit('login', user, callback)
         }
 
+        
         function submit(url, user, callback) {
             $http.post(`${consts.oapiUrl}/${url}`, user)
                 .then(resp => {

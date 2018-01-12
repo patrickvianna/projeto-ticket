@@ -19,13 +19,16 @@ module.exports = function (server) {
      */
     const protectedApi = express.Router()
     server.use('/api', protectedApi)
-
+    
     const ticketService = require('../api/ticket/ticketService')
     //ticketService.getTickets(protectedApi, 'getTickets')
     protectedApi.post('/getTickets', ticketService.getTickets)
 
     const newTicketService = require('../api/ticket/newTicketService')
     protectedApi.post('/setTickets', newTicketService.setTickets)
+
+    const detailTicketService = require('../api/ticket/detailTicketService')
+    protectedApi.post('/getDetail', detailTicketService.getDetail)
 
     //protectedApi.route('/getTickets').get(ticketService.getTickets)
 	protectedApi.use(auth)

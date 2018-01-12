@@ -1,14 +1,14 @@
 (function() {
-    angular.module('myApp').controller('NewTicket', ['$scope', '$http', 'Ticket', 'consts', 'Msg', NewTicketController])
+    angular.module('myApp').controller('NewTicket', ['$scope', '$http', 'Ticket', 'consts', 'Msg', '$state', NewTicketController])
 
-    function NewTicketController($scope, $http, Ticket, consts, Msg) {
+    function NewTicketController($scope, $http, Ticket, consts, Msg, $state) {
         const vm = this
 
         vm.severidade = {
             idSeveridade: null,
             availableOptions : [
                             {model: 1, severidade: "Baixa"},
-                            {model: 2, severidade: "Média"},
+                            {model: 2, severidade: "Normal"},
                             {model: 3, severidade: "Alta"},
                             {model: 4, severidade: "Urgente"},
                             {model: 5, severidade: "Imediata"}
@@ -40,11 +40,11 @@
             vm.tarefa.severidade = vm.severidade.idSeveridade
             vm.tarefa.projeto = vm.projeto.idProjeto
             vm.tarefa.idUser = JSON.parse(localStorage.getItem(consts.userKey)).id
-            console.log(vm.tarefa)
             $http.post(`${consts.apiUrl}/setTickets`, vm.tarefa)
             .then(resp => {
                 //vm.tickets = resp.data
                 console.log(resp)
+                $state.go('ticketList')
                 Msg.addSucess('Criado com sucesso')
             }).catch(function (resp) {
                 console.log(resp)

@@ -4,41 +4,68 @@
     <hr> <!--LINHA-->
     <div class="row">
    	<form class="form-inline">
-    	<div class="">
-    		<div class="col-md-3"> <input type="text" class="form-control" ng-model="criterioDeBusca" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0 }}" placeholder="O que voce esta buscando?"/></div>
-			<div class="col-md-2">Status: <select class="form-control" ng-model="selectedStatus" ng-options="x for x in status"></select></div>
+    	<!--div class="">
+    		<div class="col-md-3"> <input type="text" class="form-control" ng-model=""  placeholder="O que voce esta buscando?"/></div> <!-- ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0 }}">
+			<div class="col-md-2">Status: <select class="form-control" ng-model="" ng-options="x for x in status"></select></div>
 			<div class="col-md-3">From: <input type="date" class="form-control" /></div>
 			<div class="col-md-3">To: <input type="date" class="form-control" /></div>
 		
-    	</div>
+    	</div-->
     	
     </form>
 
     <div class="row"><div class="col-md-12"></div></div>
-    
-	<table class="table"> <!-- ng-show="tickets.length > 0" -->
-		<thead class="thead-light">
-            <tr>
-                <th>ID</th>
-                <th>Titulo</a></th>
-                <th>Status</a></th>
-                <th>Data de Criação</th>
-                <!--th>Severidade</th>
-                <th>&nbsp</th-->
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="ticket in ticketC.tickets | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} track by $index">
-                <td>{{::ticket.id}}</td>
-                <td>{{::ticket.name}}</td>
-                <td>{{::ticket.status}}</td>
-                <td>{{::ticket.created_on}}</td>
-                <!--td>{{ticket.severidade}}</td>
-                <td><a ng-click="verTicket(ticket.idTicket)" class="btn btn-small btn-danger">Ver</a></td-->
-            
-            </tr>
-        </tbody>
-	</table>
+    <div class="table-responsive"></div>
+        <table class="table"> <!-- ng-show="tickets.length > 0" -->
+            <thead class="thead-light">
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Projeto</a></th>
+                    <th>Titulo</a></th>
+                    <th>Tipo</a></th>
+                    <th>Status</a></th>
+                    <th>Prioridade</a></th>
+                    <th>Data de Criação</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"> <!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} -->
+                    <td>{{::ticket.id}}</td>
+                    <td>{{::ticket.project.name}}</td>
+                    <td>{{::ticket.subject}}</td>
+                    <td>{{::ticket.tracker.name}}</td>
+                    <td>{{::ticket.status.name}}</td>
+                    <td>{{::ticket.priority.name}}</td>
+                    <td>{{::ticket.created_on }}</td> <!--| date:"dd/MM/yyyy HH:mm:ss-->
+                    <td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td>
+                
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--div class="table-responsive-sm"></div>
+            <thead class="thead-light">
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Projeto</a></th>
+                    <th>Titulo</a></th>
+                    <th>Data de Criação</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"> 
+                    <td>{{::ticket.id}}</td>
+                    <td>{{::ticket.project.name}}</td>
+                    <td>{{::ticket.subject}}</td>
+                    <td>{{::ticket.created_on }}</td> 
+                    <td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td>
+                
+                </tr>
+            </tbody>
+        </table>
+    </div-->
     <div  style = "text-align: center;">
         <ul  class="pagination">
             <li ng-show="atual > 1">

@@ -20,9 +20,14 @@ const login = (req, res, next) => {
 
     let login = req.body.login || ''
     let senha = req.body.senha || ''
-    console.log(login)
-    console.log(senha)
-    //console.log(res.data)
+    let user = ''
+    let id = ''
+    let name = ''
+    let loginO = ''
+    let senhaO = ''
+    let token = ''
+
+    let entrei = false
     request.get("http://redmine:81/redmine/users.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238&name=" + login , 
     function (error, response, body) {
         if(error) {
@@ -30,32 +35,34 @@ const login = (req, res, next) => {
         }
 
         const data = JSON.parse(body);
-        console.log(data)
         //if(data.users[0] == null) {
         //    res.status(500).send("Usuário ou senha incorretos")
         //}else{
         for(var i = 0; i < data.users.length; i++)
         {
-            let user = data.users[0]
-            let id = data.users[0].id
-            let name = data.users[0].firstname
-            let loginO = data.users[0].login
-            let senhaO = data.users[0].custom_fields[0].value
+            user = data.users[0]
+            id = data.users[0].id
+            name = data.users[0].firstname
+            loginO = data.users[0].login
+            senhaO = data.users[0].custom_fields[0].value
             console.log("1: " + login +  "   2:  " + loginO)
             console.log("1: " + senha +  "   2:  " + senhaO)
             if(login == loginO && senha == senhaO)
             {            
-                const token = jwt.sign(user, env.authSecret, {
+                token = jwt.sign(user, env.authSecret, {
                     expiresIn: "1 day"
                 })
-                console.log('E IGUAL')
-                res.send({ id, name, token})
-            }//else {
-                
-            //}
+                entrei = true
+                break;
+            }
         }
-        console.log('nao E IGUAL')
-        res.status(500).send("Usuário ou senha incorretos")        
+        if(entrei) {
+            console.log('E IGUAL')
+            res.status(200).send({ id, name, token })
+        }else {
+            console.log('nao E IGUAL')
+            res.status(500).send("Usuário ou senha incorretos")        
+        }        
     })
 }
 

@@ -8,17 +8,19 @@
     padding: 7px;
 }
 
-#toast-container {
+.jumbotron{
+    padding: 5%;
+}
+
+.main-footer {
+    position: fixed;
+    bottom:0px;
+    width:100%;
+  }
+  
+  #toast-container {
     top: 70px;
-}
-
-#user-menu {
-    padding-bottom: 0px;
-}
-
-.user-menu {
-    bottom: 0px;
-}
+  }
 /*
 .row{
     background-color: red;

@@ -37,13 +37,13 @@ const setTickets = (req, res, next) => {
         form: {
             "issue": {
                 "project_id": "1",
-                "autor" : user,
+                "author_id" : user,
                 "subject": titulo,
                 "tracker_id" : tipo,
                 "status_id" : estado,
                 "priority_id" : prioridade,
                 "description" : descricao,
-                "category_id" : "3"
+                "category_id" : "2"
             }
         }}, 
         function(error, response, body){
