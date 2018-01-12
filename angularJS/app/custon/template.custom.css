@@ -1,0 +1,35 @@
+.main-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%
+}
+
+.logo {
+    padding: 7px;
+}
+
+.jumbotron{
+    padding: 5%;
+}
+
+.main-footer {
+    position: fixed;
+    bottom:0px;
+    width:100%;
+  }
+  
+  #toast-container {
+    top: 70px;
+  }
+/*
+.row{
+    background-color: red;
+}
+
+.col-md-6{
+    background-color: blue;
+}
+
+.col-md-2{
+    background-color: chartreuse;
+}*/

@@ -1,0 +1,28 @@
+<div class="row"><div class="jumbotron col-md-10 col-md-offset-1" ng-cloak ng-controller="TicketCtrl as ticketC"><h2>Tickets</h2><hr><!--LINHA--><div class="row"><form class="form-inline"><!--div class="">
+    		<div class="col-md-3"> <input type="text" class="form-control" ng-model=""  placeholder="O que voce esta buscando?"/></div> <!-- ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0 }}">
+			<div class="col-md-2">Status: <select class="form-control" ng-model="" ng-options="x for x in status"></select></div>
+			<div class="col-md-3">From: <input type="date" class="form-control" /></div>
+			<div class="col-md-3">To: <input type="date" class="form-control" /></div>
+		
+    	</div--></form><div class="row"><div class="col-md-12"></div></div><div class="table-responsive"></div><table class="table"><!-- ng-show="tickets.length > 0" --><thead class="thead-light"><tr><th>Tarefa</th><th>Projeto</th><th>Titulo</th><th>Tipo</th><th>Status</th><th>Prioridade</th><th>Data de Criação</th><th>&nbsp</th></tr></thead><tbody><tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"><!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} --><td>{{::ticket.id}}</td><td>{{::ticket.project.name}}</td><td>{{::ticket.subject}}</td><td>{{::ticket.tracker.name}}</td><td>{{::ticket.status.name}}</td><td>{{::ticket.priority.name}}</td><td>{{::ticket.created_on }}</td><!--| date:"dd/MM/yyyy HH:mm:ss--><td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td></tr></tbody></table></div><!--div class="table-responsive-sm"></div>
+            <thead class="thead-light">
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Projeto</a></th>
+                    <th>Titulo</a></th>
+                    <th>Data de Criação</th>
+                    <th>&nbsp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"> 
+                    <td>{{::ticket.id}}</td>
+                    <td>{{::ticket.project.name}}</td>
+                    <td>{{::ticket.subject}}</td>
+                    <td>{{::ticket.created_on }}</td> 
+                    <td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td>
+                
+                </tr>
+            </tbody>
+        </table>
+    </div--><div style="text-align: center;"><ul class="pagination"><li ng-show="atual > 1"><a ng-click="setPage(1)">First</a></li><li ng-show="atual > 1"><a ng-click="setPage(atual - 1)">Previous</a></li><li ng-repeat="page in pager.pages"><!-- ng-class="{active:vm.pager.currentPage === page} --> <a ng-click="setPage(page)">{{page}}</a></li><li ng-class="{disabled:atual === pager.totalPages}"><a ng-click="setPage(atual + 1)">Next</a></li><li ng-class="{disabled:atual === pager.totalPages}"><a ng-click="setPage(pager.totalPages)">Last</a></li></ul></div><div class="row"><div class="col-md-10 col-md-offset-1"><a class="btn btn-primary btn-block" ui-sref="newTicket">Novo Ticket</a></div></div></div></div>

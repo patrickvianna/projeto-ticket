@@ -1,0 +1,46 @@
+<div class=" row">
+<div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 ">
+<div class="jumbotron " ng-controller="NewTicket as nTicketC">	
+ 
+	<form name="contatoForm">
+	    <h2>Insira um Ticket</h2>
+		<input class="form-control" type="text" ng-model="nTicketC.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
+		<div class="row">
+			<div class="col-xs-12 col-md-4">
+				Tipo: 
+				<select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="nTicketC.tipo.idTipo" ng-required="true">
+					<option ng-repeat="op in nTicketC.tipo.availableOptions" value="{{op.model}}">{{  op.tipo  }}</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				Severidade: 
+				<select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="nTicketC.severidade.idSeveridade" ng-required="true">
+					<option ng-repeat="option in nTicketC.severidade.availableOptions" value="{{option.model}}">{{  option.severidade  }}</option>
+				</select>
+			</div>
+			<div class="col-xs-12 col-md-4">
+					Projeto: 
+					<select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="nTicketC.projeto.idProjeto" ng-required="true">
+						<option ng-repeat="option in nTicketC.projeto.availableOptions" value="{{option.model}}">{{  option.projeto  }}</option>
+					</select>
+			</div>
+		</div>	
+	</form>
+	<textarea class="form-control" ng-model="nTicketC.tarefa.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500"></textarea>
+ 
+	<!--div ng-show="contatoForm.title.$error.required && contatoForm.title.$edirty" class="alert alert-danger">
+		Por favor, preencha o nome!
+	</div>
+	<div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
+		No minimo 10 caracteres
+	</div>
+
+	<div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
+		Por favor, preencha o telefone!
+	</div-->
+	<a class="btn btn-info btn-sm" ui-sref="ticketList">Voltar</a>
+	<button class="btn btn-primary btn-block" ng-click="nTicketC.setTickets()" >Adicionar Ticket</button> <!-- ng-disabled="!contatoForm.$valid"-->
+
+</div>
+</div>
+</div>

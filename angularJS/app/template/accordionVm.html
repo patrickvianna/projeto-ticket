@@ -1,0 +1,12 @@
+<div class="ui-accordion-title" ng-click="open()"> 
+    
+        <h4>{{ticketObject.title}}</h4>
+        <div class="row">
+            <h5 class="col-md-2" >ID: {{ticketObject.id}}</h5>
+            <h5 class="col-md-4" >STATUS: {{ticketObject.status}}</h5>
+            <h5 class="col-md-2">DT CRIAÇÃO: {{ticketObject.createDate}}</h5> 
+            <h5 class="col-md-4">DT MOD: {{ticketObject.lastMod | date:'dd/MM/yy  HH:mm'}}</h5>
+        </div>
+    
+    </div>
+    <div class="ui-accordion-content" ng-show="isOpened">{{ticketObject.descricao}}</div>
