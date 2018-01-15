@@ -68,8 +68,8 @@
     </div-->
     <div  style = "text-align: center;">
         <ul  class="pagination">
-            <li ng-show="atual > 1">
-                <a ng-click="setPage(1)">First</a>
+            <!--li ng-show="atual > 1">
+                <a ng-click="setPage(1)">First</a-->
             </li>
             <li ng-show="atual > 1">
                 <a ng-click="setPage(atual - 1)">Previous</a>
@@ -80,8 +80,8 @@
             <li ng-class="{disabled:atual === pager.totalPages}">
                 <a ng-click="setPage(atual + 1)">Next</a>
             </li>
-            <li ng-class="{disabled:atual === pager.totalPages}">
-                <a ng-click="setPage(pager.totalPages)">Last</a>
+            <!--li ng-class="{disabled:atual === pager.totalPages}">
+                <a ng-click="setPage(pager.totalPages)">Last</a-->
             </li>
         </ul>
     </div>

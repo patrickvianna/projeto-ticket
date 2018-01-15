@@ -39,8 +39,11 @@ var promise = require('bluebird')
 }
 */
 const getTickets =  (req, res, next) => {
-    const idUser = req.body.id || ''
-
+    const idUser = req.body.idUser.id || ''
+    let init = req.body.init || ''
+    const max = req.body.max || ''
+    if(init < 1) init = 0
+    /*
     request.get("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
     function (error, response, body) {
         if(error) {
@@ -49,8 +52,17 @@ const getTickets =  (req, res, next) => {
         const data = JSON.parse(body)
         //console.log(data.issues)
         res.send(data.issues)
-    })
-    /*let projetos = new Array()
+    })*/
+    let projetos = new Array()
+    projetos = getAllProjects()
+    .then(result => comparaProjetos(result, idUser))
+    .then(result => getTarefas(result, init, max))
+    .then(result => res.send(result))
+    //.catch(res.status(500))
+    
+    
+    /*
+    let projetos = new Array()
     promise.resolve(getAllProjects()).then(function(result){
         return result
     }).then(function(result){
@@ -69,34 +81,65 @@ const getTickets =  (req, res, next) => {
 }
 
 const getAllProjects = () =>{
-    console.log("1")
-    request.get("http://redmine:81/redmine/projects.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
-    function (error, response, body) {
-        if(error) {
-            return error
-        }
-        const data = JSON.parse(body)
-        console.log(data.projects)
-        return data.projects
-    })
-}
-const get2 = (projetos) => {
-    console.log("2")
-    for(let i=0; i < projetos.length; i++)
-        {
-            getAuxiliar(projetos[i], idUser)
-        }
-}
-const getAuxiliar = (idProjeto, idUser) => {
-    console.log("3")
-    request.get("http://redmine:81/redmine/projects/"+idProjeto+"/memberships.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+    return new Promise((resolve, reject) => {
+        request.get("http://redmine:81/redmine/projects.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
         function (error, response, body) {
             if(error) {
-                return error
+                reject(new error)
             }
             const data = JSON.parse(body)
-            console.log(data)
+            resolve(data.projects)
         })
+    })
+    
+}
+const comparaProjetos = (projetos, idUser) => {
+    return new Promise((resolve, reject) => {
+        let projetosUser = new Array()
+        const max = projetos.length
+        for(let i=0; i < projetos.length; i++)
+        {            
+            request.get(`http://redmine:81/redmine/projects/${projetos[i].id}/memberships.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238` , 
+            
+            function (error, response, body) {
+            if(error) {
+                reject(new error)
+            }
+            const data = JSON.parse(body)
+            for(let j=0; j < data.memberships.length; j++)
+            {
+                if(idUser == data.memberships[j].user.id)
+                {
+                    projetosUser.push(projetos[i])
+                }
+                if(projetos[projetos.length-1] == projetos[i] && 
+                    data.memberships[data.memberships.length-1] == data.memberships[j]) 
+                {
+                    resolve(projetosUser)
+                }                
+            }                       
+        })
+        }
+    })
+    
+}
+const getTarefas = (projetos, init, max) => {
+    return new Promise((resolve, reject) => {
+        for(let i=0; i < projetos.length; i++)
+        {
+            let url = `&offset=${init}&limit=${max}&project_id=${projetos[i].id}`
+            
+            request.get("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" + url, 
+            function (error, response, body) {
+                if(error) {
+                    reject(error)
+                }
+                const data =  JSON.parse(body)
+                resolve(data.issues)
+            })
+            
+        }
+    })
 }
 
 

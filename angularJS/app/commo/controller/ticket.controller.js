@@ -1,19 +1,25 @@
 (function(){
-angular.module('myApp').controller('TicketCtrl', ['$scope', '$http', '$location', 'consts', '$state', TicketController])
+angular.module('myApp').controller('TicketCtrl', ['$scope', '$http', '$location', 'consts', '$state', 'Msg', TicketController])
 
-function TicketController($scope, $http, $location, consts, $state){
+function TicketController($scope, $http, $location, consts, $state, Msg){
     const vm = this
 
     vm.tickets = {
         tarefas : ''
     }
 
+    const vr=  {
+        idUser: JSON.parse(localStorage.getItem(consts.userKey)), 
+        init: 0.1, 
+        max: 10
+    }
+
     function getTickets() {
-        $http.post(`${consts.apiUrl}/getTickets`, JSON.parse(localStorage.getItem(consts.userKey)))
+        $http.post(`${consts.apiUrl}/getTickets`, vr)
         .then(resp => {
             vm.tickets.tarefas = resp.data
         }).catch(function (resp) {
-            //console.log(resp)
+            Msg.addError('Não foi possível carregar os tickets')
         })
     }
 
