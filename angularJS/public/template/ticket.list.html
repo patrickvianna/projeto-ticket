@@ -3,8 +3,8 @@
 			<div class="col-md-2">Status: <select class="form-control" ng-model="" ng-options="x for x in status"></select></div>
 			<div class="col-md-3">From: <input type="date" class="form-control" /></div>
 			<div class="col-md-3">To: <input type="date" class="form-control" /></div>
-		
-    	</div--></form><div class="row"><div class="col-md-12"></div></div><div class="table-responsive"></div><table class="table"><!-- ng-show="tickets.length > 0" --><thead class="thead-light"><tr><th>Tarefa</th><th>Projeto</th><th>Titulo</th><th>Tipo</th><th>Status</th><th>Prioridade</th><th>Data de Criação</th><th>&nbsp</th></tr></thead><tbody><tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"><!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} --><td>{{::ticket.id}}</td><td>{{::ticket.project.name}}</td><td>{{::ticket.subject}}</td><td>{{::ticket.tracker.name}}</td><td>{{::ticket.status.name}}</td><td>{{::ticket.priority.name}}</td><td>{{::ticket.created_on }}</td><!--| date:"dd/MM/yyyy HH:mm:ss--><td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td></tr></tbody></table></div><!--div class="table-responsive-sm"></div>
+
+    	</div--></form><div class="row"><div class="col-md-12"></div></div><div class="table-responsive"></div><table class="table"><!-- ng-show="tickets.length > 0" --><thead class="thead-light"><tr><th>Tarefa</th><th>Projeto</th><th>Titulo</th><th class="hidden-xs">Tipo</th><th class="hidden-xs">Status</th><th class="hidden-xs">Prioridade</th><th class="hidden-xs">Data de Criação</th><th>&nbsp</th></tr></thead><tbody><tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"><!-- | filter: {titulo: criterioDeBusca} | filter: {status: selectedStatus} --><td>{{::ticket.id}}</td><td>{{::ticket.project.name}}</td><td>{{::ticket.subject}}</td><td class="hidden-xs">{{::ticket.tracker.name}}</td><td class="hidden-xs">{{::ticket.status.name}}</td><td class="hidden-xs">{{::ticket.priority.name}}</td><td class="hidden-xs">{{::ticket.created_on }}</td><!--| date:"dd/MM/yyyy HH:mm:ss--><td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td></tr></tbody></table></div><!--div class="table-responsive-sm"></div>
             <thead class="thead-light">
                 <tr>
                     <th>Tarefa</th>
@@ -15,13 +15,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index"> 
+                <tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index">
                     <td>{{::ticket.id}}</td>
                     <td>{{::ticket.project.name}}</td>
                     <td>{{::ticket.subject}}</td>
-                    <td>{{::ticket.created_on }}</td> 
+                    <td>{{::ticket.created_on }}</td>
                     <td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td>
-                
+
                 </tr>
             </tbody>
         </table>
