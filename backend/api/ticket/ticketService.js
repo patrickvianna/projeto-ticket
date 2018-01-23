@@ -136,8 +136,11 @@ const comparaProjetos = (projetos, idUser) => {
                 }, 1000)
                               
             }                       
-        })
+            })
+        }
+    })   
 }
+
 const getTarefas = (projetos, init, max) => {
     return new Promise((resolve, reject) => {
         let tarefas = new Array()
