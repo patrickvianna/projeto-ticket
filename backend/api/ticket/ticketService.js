@@ -7,37 +7,6 @@ const request = require('request')
 const async = require('async')
 var promise = require('bluebird')
 
-
-
-/*const getTickets = async (req, res, next) => {
-    const idUser = req.body.id || ''
-
-    request.get("http://redmine:81/redmine/projects.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
-    function (error, response, body) {
-        if(error) {
-            res.status(500).send(error)
-        }
-        const data = JSON.parse(body)
-        let projetos = new Array()
-        console.log("1")
-        for(let i=0; i < data.projects.length; i++)
-        {
-            console.log("2")
-            getAuxiliar(data.projects[i], idUser)
-            console.log("4")
-        }
-        /*for(let i = 0 ; i < data.projects.length; i++)
-        {
-            projetos.push(data.projects[i])
-                     
-        }  *      
-        //console.log(projetos)   
-        console.log("5")
-        res.send(projetos)
-
-    })
-}
-*/
 const getTickets =  (req, res, next) => {
     const idUser = req.body.id || ''
 
@@ -47,25 +16,8 @@ const getTickets =  (req, res, next) => {
             return error
         }
         const data = JSON.parse(body)
-        //console.log(data.issues)
         res.send(data.issues)
     })
-    /*let projetos = new Array()
-    promise.resolve(getAllProjects()).then(function(result){
-        return result
-    }).then(function(result){
-        return get2(result)
-    })
-    /*for(let i = 0 ; i < data.projects.length; i++)
-    {
-        projetos.push(data.projects[i])
-                    
-    }        
-    //console.log(projetos)   
-    console.log("5")
-    res.send(projetos)
-*/
-    
 }
 
 const getProjetos = (req, res, next) => {
@@ -81,7 +33,9 @@ const getTicketProject = (req, res, next) => {
     let init = req.body.init || ''
     const max = req.body.max || ''
     const project = req.body.project
-    if(init < 1) init = 0
+    init -= 1
+    init *= 10    
+    //if(init < 1) init = 0
     
     let url = `&offset=${init}&limit=${max}&project_id=${project}`
     request.get("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" + url, 
@@ -91,7 +45,7 @@ const getTicketProject = (req, res, next) => {
         }
         const data =  JSON.parse(body)
         console.log(data)
-        res.send(data.issues)
+        res.send(data)
     })
 }
 

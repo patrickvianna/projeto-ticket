@@ -59,47 +59,27 @@
             </tbody>
         </table>
     </div>
-    <!--div class="table-responsive-sm"></div>
-            <thead class="thead-light">
-                <tr>
-                    <th>Tarefa</th>
-                    <th>Projeto</a></th>
-                    <th>Titulo</a></th>
-                    <th>Data de Criação</th>
-                    <th>&nbsp</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="ticket in ticketC.tickets.tarefas track by $index">
-                    <td>{{::ticket.id}}</td>
-                    <td>{{::ticket.project.name}}</td>
-                    <td>{{::ticket.subject}}</td>
-                    <td>{{::ticket.created_on }}</td>
-                    <td><a ng-click="ticketC.verTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td>
-
-                </tr>
-            </tbody>
-        </table>
-    </div-->
+   
     <div  style = "text-align: center;">
-        <ul  class="pagination">
-            <li ng-show="atual > 1">
-                <a ng-click="setPage(1)">First</a>
-            </li>
-            <li ng-show="atual > 1">
-                <a ng-click="setPage(atual - 1)">Previous</a>
-            </li>
-            <li ng-repeat="page in pager.pages" > <!-- ng-class="{active:vm.pager.currentPage === page} -->
-                <a ng-click="setPage(page)">{{page}}</a>
-            </li>
-            <li ng-class="{disabled:atual === pager.totalPages}">
-                <a ng-click="setPage(atual + 1)">Next</a>
-            </li>
-            <li ng-class="{disabled:atual === pager.totalPages}">
-                <a ng-click="setPage(pager.totalPages)">Last</a>
-            </li>
-        </ul>
+	    <ul  class="pagination">
+	        <li ng-show="ticketC.pager.atualPage > 1">
+	            <a ng-click="ticketC.getTicketProject(1)">First</a>
+	        </li>
+	        <li ng-show="ticketC.pager.atualPage > 1">
+	            <a ng-click="ticketC.getTicketProject(ticketC.pager.atualPage - 1)">Previous</a>
+	        </li>
+	        <li ng-class="{active: ticketC.pager.atualPage == page}" ng-repeat="page in ticketC.pager.pages" > <!-- ng-class="{active:vm.pager.currentPage === page} -->
+	            <a  ng-click="ticketC.getTicketProject(page)">{{page}}</a>
+	        </li>               
+	        <li ng-if="ticketC.pager.atualPage != ticketC.pager.totalPages">
+	            <a ng-click="ticketC.getTicketProject(ticketC.pager.atualPage + 1)">Next</a>
+	        </li>
+	        <li ng-disabled="ticketC.pager.atualPage === ticketC.pager.totalPages">
+	            <a ng-click="ticketC.getTicketProject(ticketC.pager.totalPages)">Last</a>
+	        </li>
+	    </ul>
     </div>
+    
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <a class="btn btn-primary btn-block" ui-sref="newTicket">Novo Ticket</a>
