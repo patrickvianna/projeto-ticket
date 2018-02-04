@@ -10,7 +10,6 @@
   "author": "Leonardo Leitão",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.0",
     "bcrypt": "^1.0.2",
     "bluebird": "^3.5.1",
     "body-parser": "^1.15.2",

@@ -1,5 +1,7 @@
 angular.module('myApp', [
     'ngAnimate',
     'ui.router',
-    'toastr'
+    'toastr',
+    'ngTouch',
+    'ui.bootstrap'
   ])
