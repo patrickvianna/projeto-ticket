@@ -20,8 +20,9 @@
 			</div>
 			<div class="col-xs-12 col-md-4">
 					Projeto: 
-					<select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="nTicketC.projeto.idProjeto" ng-required="true">
-						<option ng-repeat="option in nTicketC.projeto.availableOptions" value="{{option.model}}">{{  option.projeto  }}</option>
+					<select class="form-control" name="mySelect" id="mySelect"
+							ng-options="option.name for option in nTicketC.projetos.lista track by option.id"
+							ng-model="nTicketC.projetos.selectedOption">
 					</select>
 			</div>
 		</div>	

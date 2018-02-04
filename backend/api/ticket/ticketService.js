@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt')
 const env = require('../../.env')*/
 const http = require('http')
 const request = require('request')
-const async = require('async')
 var promise = require('bluebird')
 
 const getTickets =  (req, res, next) => {
@@ -44,7 +43,7 @@ const getTicketProject = (req, res, next) => {
             reject(error)
         }
         const data =  JSON.parse(body)
-        console.log(data)
+        console.log(data.total_count)
         res.send(data)
     })
 }

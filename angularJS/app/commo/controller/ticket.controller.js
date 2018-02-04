@@ -1,7 +1,7 @@
 (function(){
-angular.module('myApp').controller('TicketCtrl', ['$scope', '$http', '$location', 'consts', '$state', 'Msg', '$q', 'ticketService', '$rootScope', TicketController])
+angular.module('myApp').controller('TicketCtrl', ['$scope', '$http', '$location', 'consts', '$state', 'Msg', '$q', 'ticketService', '$rootScope', '$uibModal', TicketController])
 
-function TicketController($scope, $http, $location, consts, $state, Msg, $q, ticketService, $rootScope){
+function TicketController($scope, $http, $location, consts, $state, Msg, $q, ticketService, $rootScope,$uibModal){
     const vm = this
 
     vm.tickets = {
@@ -31,6 +31,62 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
         pages: ''
     }
     
+
+    /*vm.testeModal = (idTicket) => {
+       vm.modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'template/ticket.detail.html', //'template/modal.teste.html',
+        controller : 'DetailCtrl', //'myTeste',
+        controllerAs: '$ctrl',
+        size: 'lg',
+        resolve: {
+            //parametro: () => 25 
+            idTicket: () => idTicket
+        
+        }
+        })
+        
+        
+    } */
+    vm.dataForModal = {
+        name: 'NameToEdit',
+        value: 'ValueToEdit'
+    }
+
+    vm.testeModal = (id) => {
+        
+        $uibModal.open({
+            template: '<detail-modal tarefa="$ctrl.tarefa" $close="$close(result)" $dismiss="$dismiss(reason)"></detail-modal>',
+            controller: ['modalData', function(modalData) {
+                const $ctrl = this
+                const rota = id
+                $ctrl.greeting = 'I am a modal!'
+                $ctrl.modalData = modalData;
+                $http.post(`${consts.apiUrl}/getDetail`, {rota})
+                .then(function(resp){
+                    $ctrl.tarefa = resp.data.issue
+                    console.log($ctrl.tarefa)
+                }).catch(function(resp){
+                    console.log(resp)
+                })
+            }],
+            controllerAs: '$ctrl',
+            size: 'lg',
+            resolve: {
+                modalData: vm.dataForModal,
+                idTicket: vm.idTicket
+            }
+        }).result.then(function(result) {
+            console.info("I was closed, so do what I need to do myContent's controller now and result was->");
+            console.info(result);
+        }, function(reason) {
+            console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
+        });
+        
+    }
+
     function getTickets() {
         $http.post(`${consts.apiUrl}/getTickets`, JSON.parse(localStorage.getItem(consts.userKey)))
         .then(resp => {
@@ -55,7 +111,6 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
                 resolve()
             }).catch(resp => {
                 Msg.addError('Não foi possível carregar os projetos')
-                reject()
             })
         })
     }
@@ -69,7 +124,6 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
             vm.tickets.tarefas = resp.data.issues
             vm.pager.totalItens = resp.data.total_count
             vm.pager = pagination(atualPage, vm.pager.totalItens)
-            console.log(vm.pager)
         }).catch(function (resp) {
             Msg.addError('Não foi possível carregar os tickets')
         })
@@ -132,12 +186,3 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
 
 }
 })()
-
-
-/*
-$http({
-     url: user.details_path, 
-     method: "GET",
-     params: {user_id: user.id}  
-});
-*/

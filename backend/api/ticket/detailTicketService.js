@@ -9,7 +9,7 @@ const request = require('request')
 const getDetail = (req, res, next) => {
     const rota = req.body.rota
     
-    request.get("http://redmine:81/redmine/issues/"+rota+".json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+    request.get(`http://redmine:81/redmine/issues/${rota}.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238` , 
         function (error, response, body) {
             if(error) {
                 return error
