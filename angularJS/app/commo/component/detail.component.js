@@ -1,15 +1,13 @@
 angular.module('myApp')
     .component('detailModal', {
         template: `<div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" ng-click="$ctrl.handleClose()" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
         <h4 class="modal-title">Detalhes ticket</h4>
-        {{$ctrl.idTicket}}
       </div>
     <!-- HEADER -->
     
     <div class="jumbotron">
-    {{$ctrl.idTicket}}
         <!--button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span></button-->
         <div class="modal-body">
@@ -18,10 +16,10 @@ angular.module('myApp')
                 <div class="panel-heading">
                     <h2><b>{{ ::$ctrl.tarefa.subject }}</b></h2>
                     <div class="row">
-                        <div class="col-xs-6 col-md-2">
+                        <div class="col-xs-6 col-md-3">
                             <h3><b>Ticket ID:</b> {{ ::$ctrl.tarefa.id }}</h3>
                         </div>
-                        <div class="col-xs-6 col-md-3">
+                        <div class="col-xs-6 col-md-6">
                             <h3><b>Projeto:</b> {{ ::$ctrl.tarefa.project.name }}</h3>
                         </div>
                     </div>

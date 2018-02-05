@@ -60,6 +60,7 @@ const getAllProjects = () =>{
         })
     })
 }
+
 const comparaProjetos = (projetos, idUser) => {
     return new Promise((resolve, reject) => {
         let projetosUser = new Array()

@@ -50,20 +50,15 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
         
         
     } */
-    vm.dataForModal = {
-        name: 'NameToEdit',
-        value: 'ValueToEdit'
-    }
+    
 
-    vm.testeModal = (id) => {
+    vm.detailTicket = (id) => {
         
         $uibModal.open({
             template: '<detail-modal tarefa="$ctrl.tarefa" $close="$close(result)" $dismiss="$dismiss(reason)"></detail-modal>',
-            controller: ['modalData', function(modalData) {
+            controller: [ function() {
                 const $ctrl = this
                 const rota = id
-                $ctrl.greeting = 'I am a modal!'
-                $ctrl.modalData = modalData;
                 $http.post(`${consts.apiUrl}/getDetail`, {rota})
                 .then(function(resp){
                     $ctrl.tarefa = resp.data.issue
@@ -75,14 +70,37 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
             controllerAs: '$ctrl',
             size: 'lg',
             resolve: {
-                modalData: vm.dataForModal,
-                idTicket: vm.idTicket
             }
         }).result.then(function(result) {
             console.info("I was closed, so do what I need to do myContent's controller now and result was->");
             console.info(result);
         }, function(reason) {
             console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
+        });
+        
+    }
+
+    vm.newTicket = () => {
+        
+        $uibModal.open({
+            template: '<new-modal projetos="$ctrl.projetos" $close="$close(result)" $dismiss="$dismiss(reason)"></new-modal>',
+            controller: ['projetos', function(projetos) {
+                const $ctrl = this
+                $ctrl.projetos = projetos
+               
+            }],
+            controllerAs: '$ctrl',
+            size: 'lg',
+            resolve: {
+                projetos: vm.projetos
+            }
+        }).result.then(function(result) {
+            console.info("I was closed, so do what I need to do myContent's controller now and result was->");
+            console.info(result);
+        }, function(reason) {
+            Msg.addSucess('Criado com sucesso')
+            console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
+            vm.getTicketProject()
         });
         
     }
