@@ -21,6 +21,10 @@
   #toast-container {
     top: 70px;
   }
+
+  input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid {
+	border-color: #F99;
+}
 /*
 .row{
     background-color: red;

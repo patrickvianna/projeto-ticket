@@ -12,20 +12,21 @@ angular.module('myApp')
     <div class="col-xs-10 col-xs-offset-1 col-md-10 col-md-offset-1 "-->
     <div class="jumbotron ">	
      
-        <form name="contatoForm">
+        <form name="ticketForm">
             <h2>Insira um Ticket</h2>
-            <input class="form-control" type="text" ng-model="$ctrl.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10"/>
+            <input class="form-control" type="text" ng-model="$ctrl.tarefa.titulo" name="title" placeholder="Título" ng-required="true" ng-minlength="10" ng-maxlength="50"required/>
             <div class="row">
                 <div class="col-xs-12 col-md-4">
                     Tipo: 
                     <select class="form-control" name="mySelectTipo" id="mySelectTipo"
                             ng-options="option.name for option in $ctrl.tipo.lista track by option.id"
-                            ng-model="$ctrl.tipo.selectedOption">
+                            ng-model="$ctrl.tipo.selectedOption"
+                            required>
                     </select>
                 </div>
                 <div class="col-xs-12 col-md-4">
                     Severidade: 
-                    <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="$ctrl.severidade.idSeveridade" ng-required="true">
+                    <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="$ctrl.severidade.idSeveridade" ng-required="true" required>
                         <option ng-repeat="option in $ctrl.severidade.availableOptions" value="{{option.model}}">{{  option.severidade  }}</option>
                     </select>
                 </div>
@@ -33,12 +34,13 @@ angular.module('myApp')
                     Projeto: 
                     <select class="form-control" name="mySelect" id="mySelect"
                             ng-options="option.name for option in $ctrl.projetos.lista track by option.id"
-                            ng-model="$ctrl.projetos.selectedOption">
+                            ng-model="$ctrl.projetos.selectedOption"
+                            required>
                     </select>
                 </div>
             </div>	
         </form>
-        <textarea class="form-control" ng-model="$ctrl.tarefa.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500"></textarea>
+        <textarea class="form-control" ng-model="$ctrl.tarefa.descricao" name="Descricao" form="contatoForm" placeholder="Descrição" maxlength="500" required></textarea>
      
         <button class="btn btn-primary btn-block" ng-click="$ctrl.setTickets()" >Adicionar Ticket</button> <!-- ng-disabled="!contatoForm.$valid"-->
     
@@ -50,7 +52,7 @@ angular.module('myApp')
             $dismiss: '&',
             projetos: '<'
         },
-        controller: ['$http', 'consts', function($http, consts) {
+        controller: ['$http', 'consts', 'Msg', function($http, consts, Msg) {
             var $ctrl = this;
 
             $ctrl.severidade = {
@@ -77,6 +79,33 @@ angular.module('myApp')
             }
     
             $ctrl.setTickets = () => {
+                console.log($ctrl.tarefa)
+                if($ctrl.tarefa.titulo == null || $ctrl.tarefa.titulo == '' || $ctrl.tarefa.titulo == ' ')
+                {
+                    Msg.addError("Campo título não pode ser vazio", "Campo obrigatório")
+                    return
+                }                    
+                if($ctrl.severidade.idSeveridade == null || $ctrl.severidade.idSeveridade == '' || $ctrl.severidade.idSeveridade == ' ')
+                {
+                    Msg.addError("Campo severidade não pode ser vazio", "Campo obrigatório")
+                    return
+                }                    
+                if($ctrl.projetos.selectedOption.id == null || $ctrl.projetos.selectedOption.id == '' || $ctrl.projetos.selectedOption.id == ' ')
+                {
+                    Msg.addError("Campo projeto não pode ser vazio", "Campo obrigatório")
+                    return
+                }                    
+                if($ctrl.tipo.selectedOption.id == null || $ctrl.tipo.selectedOption.id == '' || $ctrl.tipo.selectedOption.id == ' ')
+                {
+                    Msg.addError("Campo tipo não pode ser vazio", "Campo obrigatório")
+                    return
+                }                    
+                if($ctrl.tarefa.descricao == null || $ctrl.tarefa.descricao == '' || $ctrl.tarefa.descricao == ' ')
+                {
+                    Msg.addError("Campo descricao não pode ser vazio", "Campo obrigatório")
+                    return
+                }
+                    
                 $ctrl.tarefa.tipo = $ctrl.tipo.idTipo
                 $ctrl.tarefa.prioridade = $ctrl.severidade.idSeveridade
                 $ctrl.tarefa.projeto = $ctrl.projetos.selectedOption.id
@@ -86,7 +115,7 @@ angular.module('myApp')
                     //$ctrl.tickets = resp.data
                     console.log(resp)
                     $ctrl.$dismiss({
-                        reason: 'cancel'
+                        reason: 'success'
                     });
                     //Msg.addSucess('Criado com sucesso')
                 }).catch(function (resp) {
@@ -99,7 +128,6 @@ angular.module('myApp')
                 $http.post(`${consts.apiUrl}/getTipo`, JSON.parse(localStorage.getItem(consts.userKey)))
                 .then(resp => {
                     $ctrl.tipo.lista = resp.data
-                    console.log(resp.data)
                 }).catch(resp => {
                     Msg.addError('Não foi possível carregar as informações')
                 })

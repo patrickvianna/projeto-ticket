@@ -87,6 +87,8 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
             controller: ['projetos', function(projetos) {
                 const $ctrl = this
                 $ctrl.projetos = projetos
+                $ctrl.projetos.selectedOption.id = ''
+                $ctrl.projetos.selectedOption.name = ''
                
             }],
             controllerAs: '$ctrl',
@@ -95,11 +97,12 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, tic
                 projetos: vm.projetos
             }
         }).result.then(function(result) {
-            console.info("I was closed, so do what I need to do myContent's controller now and result was->");
-            console.info(result);
+            //console.info("I was closed, so do what I need to do myContent's controller now and result was->");
+            //console.info(result);
         }, function(reason) {
-            Msg.addSucess('Criado com sucesso')
-            console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
+            if(reason == 'success')
+                Msg.addSucess('Criado com sucesso')
+            //console.info("I was dimissed, so do what I need to do myContent's controller now and reason was->"+reason);
             vm.getTicketProject()
         });
         
