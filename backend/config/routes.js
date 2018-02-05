@@ -28,6 +28,8 @@ module.exports = function (server) {
 
     const newTicketService = require('../api/ticket/newTicketService')
     protectedApi.post('/setTickets', newTicketService.setTickets)
+    protectedApi.post('/getTipo', newTicketService.getTipo)
+    
 
     const detailTicketService = require('../api/ticket/detailTicketService')
     protectedApi.post('/getDetail', detailTicketService.getDetail)

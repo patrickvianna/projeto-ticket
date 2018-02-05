@@ -15,13 +15,13 @@ const setTickets = (req, res, next) => {
     const estado = 1
     const prioridade = req.body.prioridade
 
-    console.log(user)
-    console.log(titulo)
-    console.log(idProjeto)
-    console.log(descricao)
-    console.log(tipo)
-    console.log(estado)
-    console.log(prioridade)
+    console.log(`USER: ${user}`)
+    console.log(`TITULO: ${titulo}`)
+    console.log(`PROJETO: ${idProjeto}`)
+    console.log(`DESCRICAO: ${descricao}`)
+    console.log(`TIPO: ${tipo}`)
+    console.log(`ESTADO: ${estado}`)
+    console.log(`PRIORIDADE: ${prioridade}`)
 
     console.log(req.body)
     /*request.post("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
@@ -33,10 +33,11 @@ const setTickets = (req, res, next) => {
     request(
         {
         method:'POST',
-        url:"http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238", 
+        url: `http://redmine:81/redmine/issues.json?key=e6f2142c55b831b13e71bbb9de966b62cf21f2da`,
+        //url:"http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238", 
         form: {
             "issue": {
-                "project_id": "1",
+                "project_id": idProjeto,
                 "author_id" : user,
                 "subject": titulo,
                 "tracker_id" : tipo,
@@ -58,4 +59,17 @@ const setTickets = (req, res, next) => {
     )
 }
 
-module.exports = { setTickets }
+const getTipo = (req, res, next) => {
+    return new Promise((resolve, reject) => {
+        request.get("http://redmine:81/redmine/trackers.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+        function (error, response, body) {
+            if(error) {
+                reject(error)
+            }
+            const data = JSON.parse(body)
+            res.send(data.trackers)
+        })
+    })
+}
+
+module.exports = { setTickets, getTipo }
