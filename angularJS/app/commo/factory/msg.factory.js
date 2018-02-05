@@ -14,8 +14,8 @@
             addMsg(msgs, titulo, 'success')
         }
 
-        function addError(msgs) {
-            addMsg(msgs, 'Erro', 'error')
+        function addError(msgs, titulo = 'Erro') {
+            addMsg(msgs, titulo, 'error')
         }
 
         return { addSucess, addError }

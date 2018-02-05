@@ -21,24 +21,24 @@
                             {model: 3, tipo: "Suporte"}
                             
         ]}
-        vm.projeto = {
-            idProjeto: null,
-            availableOptions : [
-                            {model: 1, projeto: "Teste"}
-        ]}                   
+        vm.projetos = {
+            lista : [],
+            selectedOption: {id: '', name: ''} 
+        }
+
         vm.tarefa = {
             idUser: '',
             titulo: '',
             descricao : '',
             tipo: '',
-            severidade: '',
+            prioridade: '',
             projeto: ''            
         }
 
         vm.setTickets = () => {
             vm.tarefa.tipo = vm.tipo.idTipo
-            vm.tarefa.severidade = vm.severidade.idSeveridade
-            vm.tarefa.projeto = vm.projeto.idProjeto
+            vm.tarefa.prioridade = vm.severidade.idSeveridade
+            vm.tarefa.projeto = vm.projetos.selectedOption.id
             vm.tarefa.idUser = JSON.parse(localStorage.getItem(consts.userKey)).id
             $http.post(`${consts.apiUrl}/setTickets`, vm.tarefa)
             .then(resp => {
@@ -51,6 +51,20 @@
                 Msg.addError('Ops, houve algo de errado')
             })
         }
+
+        function getProjetos() {
+                $http.post(`${consts.apiUrl}/getProjetos`, JSON.parse(localStorage.getItem(consts.userKey)))
+                .then(resp => {
+                    vm.projetos.lista = resp.data
+                    vm.projetos.selectedOption = resp.data[0] || ''
+                    console.log(resp.data)
+                }).catch(resp => {
+                    Msg.addError('Não foi possível carregar os projetos')
+                })
+            }
+        
+
+        getProjetos()
     }
 })()
 

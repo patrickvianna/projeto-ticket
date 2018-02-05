@@ -1,10 +1,10 @@
 (function() {
-    angular.module('myApp').controller('DetailCtrl', ['$http', '$stateParams', 'consts', DetailController])
+    angular.module('myApp').controller('DetailCtrl', ['$http', 'consts', '$scope', DetailController])
 
-    function DetailController ($http, $stateParams, consts) {
+    function DetailController ($http, consts) {
 
         const vm = this
-        const rota = $stateParams.idTicketRota
+        const rota = 47
 
         vm.tarefa = {
 
@@ -36,6 +36,12 @@
             console.log(vm.comentsLs)
         }
 
+
+        vm.close = () => {
+            vm.$dismiss({
+                reason: 'cancel'
+            })
+        }
         callTicket()
     }
 })()
