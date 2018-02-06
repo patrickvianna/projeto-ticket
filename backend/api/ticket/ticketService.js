@@ -110,6 +110,7 @@ const getTarefas = (projetos, init, max) => {
         })
     })
 }
+/*
 const getTarefas = (projetos, init, max) => {
     return new Promise((resolve, reject) => {
         for(let i=0; i < projetos.length; i++)
@@ -127,7 +128,7 @@ const getTarefas = (projetos, init, max) => {
             
         }
     })
-}
+}*/
 
 
 

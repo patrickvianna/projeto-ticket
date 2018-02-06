@@ -1,7 +1,7 @@
 (function(){
-angular.module('myApp').controller('TicketCtrl', ['$scope', '$http', '$location', 'consts', '$state', 'Msg', '$q', 'ticketService', '$rootScope', '$uibModal', TicketController])
+angular.module('myApp').controller('TicketCtrl', ['$scope', '$http', '$location', 'consts', '$state', 'Msg', '$q', '$rootScope', '$uibModal', TicketController])
 
-function TicketController($scope, $http, $location, consts, $state, Msg, $q, ticketService, $rootScope,$uibModal){
+function TicketController($scope, $http, $location, consts, $state, Msg, $q, $rootScope,$uibModal){
     const vm = this
 
     vm.tickets = {

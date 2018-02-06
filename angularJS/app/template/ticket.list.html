@@ -56,7 +56,7 @@
                     <td class="hidden-xs">{{ticket.tracker.name}}</td>
                     <td class="hidden-xs">{{ticket.status.name}}</td>
                     <td class="hidden-xs">{{ticket.priority.name}}</td>
-                    <td class="hidden-xs">{{ticket.created_on }}</td> <!--| date:"dd/MM/yyyy HH:mm:ss-->
+                    <td class="hidden-xs">{{ticket.created_on | date:'dd/MM/yyyy HH:mm:ss'}}</td> <!--| date:"dd/MM/yyyy HH:mm:ss-->
                     <td><a ng-click="ticketC.detailTicket(ticket.id)" class="btn btn-small btn-danger">Ver</a></td>
 
                 </tr>
