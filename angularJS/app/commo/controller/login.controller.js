@@ -14,7 +14,7 @@
         vm.logar = function() {
             auth.login(vm.user, err => {
                 if (err) {
-                    Msg.addError(err.data)
+                    Msg.addError('Erro ao logar')
                 } else {
                     $location.path('/ticketList')
                     Msg.addSucess('Bem-vindo', 'Logado com sucesso!')
