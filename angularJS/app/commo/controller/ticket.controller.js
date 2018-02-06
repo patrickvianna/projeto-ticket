@@ -86,9 +86,9 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, $ro
             template: '<new-modal projetos="$ctrl.projetos" $close="$close(result)" $dismiss="$dismiss(reason)"></new-modal>',
             controller: ['projetos', function(projetos) {
                 const $ctrl = this
-                $ctrl.projetos = projetos
-                $ctrl.projetos.selectedOption.id = ''
-                $ctrl.projetos.selectedOption.name = ''
+                $ctrl.proj = projetos
+                //$ctrl.proj.selectedOption.id = ''
+                //$ctrl.proj.selectedOption.name = ''
                
             }],
             controllerAs: '$ctrl',
