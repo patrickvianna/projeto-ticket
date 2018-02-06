@@ -156,20 +156,20 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, $ro
         let totalPages = Math.ceil(totalItens / pageSize);				//CALCULO DA QUANTIDADE DE PAGINAS
         let startPage, endPage;												//START PRIMEIRA E ULTIMA PAGINAS
         
-        if (totalPages <= 10) {											    //SE TIVER MENOS QUE 10 PAGINAS MOSTRE TUDO
+        if (totalPages <= 4) {											    //SE TIVER MENOS QUE 10 PAGINAS MOSTRE TUDO
             startPage = 1;													//A PRIMEIRA PAGINA VAI SER 1
             endPage = totalPages;											//A ULTIMA VAI SER O NUMERO DO TOTAL
         }else {                                                                 //MAIS QUE 10 PARA CALCULAR AS PAGINAS DE INICIO E O FIM
-            if (atualPage <= 6) {										///SE A PAGINA ATUAL FOR MENOR OU IGUAL A 6
+            if (atualPage <= 3) {										///SE A PAGINA ATUAL FOR MENOR OU IGUAL A 6
                 startPage = 1;													//A PRIMEIRA PAGINA RECEBE 1
-                endPage = 10;													//A ULTIMA PAGINA RECEBE 10
+                endPage = 4;													//A ULTIMA PAGINA RECEBE 10
             }    
-            else if (atualPage+ 4 >= totalPages) {						    //SE A (PAGINA ATUAL + 4) FOR MAIOR OU IGUAL AO TOTAL DE PAGINAS
-                startPage = totalPages - 9;										//A PRIMEIRA PAGINA RECEBE O TOTAL DE PAGINAS MENOS 9
+            else if (atualPage+ 1 >= totalPages) {						    //SE A (PAGINA ATUAL + 4) FOR MAIOR OU IGUAL AO TOTAL DE PAGINAS
+                startPage = totalPages - 3;										//A PRIMEIRA PAGINA RECEBE O TOTAL DE PAGINAS MENOS 9
                 endPage = totalPages;											//A ULTIMA PAGINA RECEBE O TOTAL DE PAGINAS
             } else {                                                            //SE NAO    
-                startPage = atualPage - 5;							    //A PRIMEIRA PAGINA RECEBE A PAGINA ATUAL MENOS 5
-                endPage = atualPage + 4;									//A ULTIMA PAGINA RECEBE A PAGINA ATULA MAIS 4
+                startPage = atualPage;							    //A PRIMEIRA PAGINA RECEBE A PAGINA ATUAL MENOS 5
+                endPage = atualPage + 1;									//A ULTIMA PAGINA RECEBE A PAGINA ATULA MAIS 4
             }																	
         }
         // calculate start and end item indexes								    --CALCULANDO O ITEM DO COMEÇO E DO FINAL
