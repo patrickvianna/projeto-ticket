@@ -5,8 +5,8 @@
         const vm = this
         vm.loginMode = true
          vm.user = {
-            login: 'teste',
-            senha: '123456789'
+            login: '',
+            senha: ''
         }
 
         //vm.changeMode = () => vm.loginMode = !vm.loginMode
