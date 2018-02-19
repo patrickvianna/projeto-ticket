@@ -40,17 +40,18 @@ const login = (req, res, next) => {
         //}else{
         for(var i = 0; i < data.users.length; i++)
         {
-            user = data.users[0]
-            id = data.users[0].id
-            name = data.users[0].firstname
-            loginO = data.users[0].login
-            senhaO = data.users[0].custom_fields[0].value
+            user = data.users[i]
+            id = data.users[i].id
+            name = data.users[i].firstname
+            loginO = data.users[i].login
+            senhaO = data.users[i].custom_fields[0].value
             console.log("1: " + login +  "   2:  " + loginO)
             console.log("1: " + senha +  "   2:  " + senhaO)
+            console.log("1: " + name )
             if(login == loginO && senha == senhaO)
             {            
                 token = jwt.sign(user, env.authSecret, {
-                    expiresIn: "1 day"
+                    expiresIn: "30 minutes"
                 })
                 entrei = true
                 break;
