@@ -64,22 +64,31 @@
         </table>
     </div>
    
-    <div  style = "text-align: center;">
+    <div  style = "text-align: center;" ng-hide="ticketC.projetos.lista < 1">
 	    <ul  class="pagination">
 	        <li ng-show="ticketC.pager.atualPage > 1">
-	            <a ng-click="ticketC.getTicketProject(1)">First</a>
+	            <a ng-click="ticketC.getTicketProject(1)"> Primeira </a>
 	        </li>
 	        <li ng-show="ticketC.pager.atualPage > 1">
-	            <a ng-click="ticketC.getTicketProject(ticketC.pager.atualPage - 1)">Previous</a>
+                <a  ng-click="ticketC.getTicketProject(ticketC.pager.atualPage - 1)"
+                    class="page-link" href="#" aria-label="Previous"> 
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                </a>
 	        </li>
 	        <li ng-class="{active: ticketC.pager.atualPage == page}" ng-repeat="page in ticketC.pager.pages" > <!-- ng-class="{active:vm.pager.currentPage === page} -->
 	            <a  ng-click="ticketC.getTicketProject(page)">{{page}}</a>
 	        </li>               
 	        <li ng-if="ticketC.pager.atualPage != ticketC.pager.totalPages">
-	            <a ng-click="ticketC.getTicketProject(ticketC.pager.atualPage + 1)">Next</a>
+                <a  ng-click="ticketC.getTicketProject(ticketC.pager.atualPage + 1)"
+                    class="page-link" href="#" aria-label="Next"> 
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                </a>
 	        </li>
-	        <li ng-disabled="ticketC.pager.atualPage === ticketC.pager.totalPages">
-	            <a ng-click="ticketC.getTicketProject(ticketC.pager.totalPages)">Last</a>
+            <li ng-disabled="ticketC.pager.atualPage === ticketC.pager.totalPages"
+                ng-if="ticketC.pager.atualPage != ticketC.pager.totalPages">
+	            <a ng-click="ticketC.getTicketProject(ticketC.pager.totalPages)"> Última </a>
 	        </li>
 	    </ul>
     </div>
