@@ -6,7 +6,6 @@ const env = require('../../.env')
 const http = require('http')
 const request = require('request')
 
-
 const emailRegex = /\S+@\S+\.\S+/
 const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,12})/
 
@@ -28,42 +27,45 @@ const login = (req, res, next) => {
     let token = ''
 
     let entrei = false
-    request.get("http://redmine:81/redmine/users.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238&name=" + login , 
+    request.get("http://redmine:81/redmine/users.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238&name=" + login ,
     function (error, response, body) {
-        if(error) {
-            res.status(500).send(error)
-        }
+        try {
+          const data = JSON.parse(body);
 
-        const data = JSON.parse(body);
-        //if(data.users[0] == null) {
-        //    res.status(500).send("Usuário ou senha incorretos")
-        //}else{
-        for(var i = 0; i < data.users.length; i++)
-        {
-            user = data.users[i]
-            id = data.users[i].id
-            name = data.users[i].firstname
-            loginO = data.users[i].login
-            senhaO = data.users[i].custom_fields[0].value
-            console.log("1: " + login +  "   2:  " + loginO)
-            console.log("1: " + senha +  "   2:  " + senhaO)
-            console.log("1: " + name )
-            if(login == loginO && senha == senhaO)
-            {            
-                token = jwt.sign(user, env.authSecret, {
-                    expiresIn: "30 minutes"
-                })
-                entrei = true
-                break;
-            }
-        }
-        if(entrei) {
-            console.log('E IGUAL')
-            res.status(200).send({ id, name, token })
-        }else {
-            console.log('nao E IGUAL')
-            res.status(500).send("Usuário ou senha incorretos")        
-        }        
+          for(var i = 0; i < data.users.length; i++)
+          {
+              user = data.users[i]
+              id = data.users[i].id
+              name = data.users[i].firstname
+              loginO = data.users[i].login
+              senhaO = data.users[i].custom_fields[0].value
+              console.log("1: " + login +  "   2:  " + loginO)
+              console.log("1: " + senha +  "   2:  " + senhaO)
+              console.log("1: " + name )
+              if(login == loginO && senha == senhaO)
+              {
+                  token = jwt.sign(user, env.authSecret, {
+                      expiresIn: "30 minutes"
+                  })
+                  entrei = true
+                  break;
+              }
+          }
+          if(entrei) {
+              console.log('E IGUAL')
+              res.status(200).send({ id, name, token })
+          }else {
+              console.log("1: " + login +  "   2:  " + loginO)
+              console.log("1: " + senha +  "   2:  " + senhaO)
+              console.log('nao E IGUAL')
+              res.status(500).send("Usuário ou senha incorretos")
+              return;
+          }
+      }
+      catch(e) {
+          console.log('Erro de conexão');
+          return;
+      }
     })
 }
 
