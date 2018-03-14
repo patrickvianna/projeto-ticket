@@ -25,6 +25,12 @@
   input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid {
 	border-color: #F99;
 }
+.margem-detail {
+    /*padding-top: 0%;
+    padding-bottom: 0%;
+    */
+    padding: 3%;
+}
 /*
 .row{
     background-color: red;

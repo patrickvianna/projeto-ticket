@@ -10,13 +10,18 @@
             <div class="row">
                 <div class="col-md-12 ">
                     <h4>Login</h4>
-                    <div class="form-group">
-                        <input type="text" ng-model="loginC.user.login" class="form-control" placeholder="username"/>
-                        <input type="password" ng-model="loginC.user.senha" class="form-control" placeholder="password"/>
-                    </div> 
-                    <a  class="btn btn-primary btn-block" ng-click="loginC.logar()">Entrar</a> 
+                    <form  ng-submit="loginC.logar()">
+                        <div class="form-group">
+                            <input type="text" ng-model="loginC.user.login" class="form-control" placeholder="username"/>
+                            <input type="password" ng-model="loginC.user.senha" class="form-control" placeholder="password"/>
+                        </div>
+                     
+                        <button  class="btn btn-primary btn-block">Entrar</button> 
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- ng-click="loginC.logar()" -->

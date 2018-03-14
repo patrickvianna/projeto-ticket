@@ -5,8 +5,8 @@
         const vm = this
         vm.loginMode = true
          vm.user = {
-            login: 'teste',
-            senha: '123456789'
+            login: '',
+            senha: ''
         }
 
         //vm.changeMode = () => vm.loginMode = !vm.loginMode
@@ -14,7 +14,7 @@
         vm.logar = function() {
             auth.login(vm.user, err => {
                 if (err) {
-                    Msg.addError(err.data)
+                    Msg.addError('Erro ao logar')
                 } else {
                     $location.path('/ticketList')
                     Msg.addSucess('Bem-vindo', 'Logado com sucesso!')

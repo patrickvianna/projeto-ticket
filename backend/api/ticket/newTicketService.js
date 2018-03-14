@@ -24,44 +24,48 @@ const setTickets = (req, res, next) => {
     console.log(`PRIORIDADE: ${prioridade}`)
 
     console.log(req.body)
-    /*request.post("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+    //request.get(`redmine:81/redmine/users/${user}.json?include=memberships?key=683ad157ea69a8e9d8b5db20782b92fd1267e238` ,
+    request.get("http://redmine:81/redmine/users/6.json?key=1ace348514d8992b4cf46a632a6aa837fc38e520",
     function (error, response, body) {
         if(error) {
             res.status(500).send(error)
         }
-    })*/
-    request(
-        {
-        method:'POST',
-        url: `http://redmine:81/redmine/issues.json?key=e6f2142c55b831b13e71bbb9de966b62cf21f2da`,
-        //url:"http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238", 
-        form: {
-            "issue": {
-                "project_id": idProjeto,
-                "author_id" : user,
-                "subject": titulo,
-                "tracker_id" : tipo,
-                "status_id" : estado,
-                "priority_id" : prioridade,
-                "description" : descricao,
-                "category_id" : "2"
-            }
-        }}, 
-        function(error, response, body){
-            if(error) 
+        const key = JSON.parse(body).user.api_key;
+
+        request(
             {
-                const er = JSON.parse(error)
-                console.log(er)
-                res.status(500).send(er)
+            method:'POST',
+            url: `http://redmine:81/redmine/issues.json?key=${key}`,
+            //url:"http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238",
+            form: {
+                "issue": {
+                    "project_id": idProjeto,
+                    "author_id" : user,
+                    "subject": titulo,
+                    "tracker_id" : tipo,
+                    "status_id" : estado,
+                    "priority_id" : prioridade,
+                    "description" : descricao,
+                    "category_id" : "2"       // Categoria sempre será nova
+                }
+            }},
+            function(error, response, body){
+                if(error)
+                {
+                    const er = JSON.parse(error)
+                    console.log(er)
+                    res.status(500).send(er)
+                }
+                res.send(response)
             }
-            res.send(response)
-        }
-    )
+        )
+    })
+
 }
 
 const getTipo = (req, res, next) => {
     return new Promise((resolve, reject) => {
-        request.get("http://redmine:81/redmine/trackers.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+        request.get("http://redmine:81/redmine/trackers.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" ,
         function (error, response, body) {
             if(error) {
                 reject(error)
