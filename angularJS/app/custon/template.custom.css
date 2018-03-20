@@ -17,7 +17,7 @@
     bottom:0px;
     width:100%;
   }
-  
+
   #toast-container {
     top: 70px;
   }
@@ -31,6 +31,23 @@
     */
     padding: 3%;
 }
+
+/* */
+#fileselector {
+    margin: 10px;
+}
+#upload-file-selector {
+    display:none;
+}
+.margin-correction {
+    margin-right: 10px;
+}
+
+/* */
+
+.my-drop-zone { border: dotted 3px lightgray; }
+.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
 /*
 .row{
     background-color: red;

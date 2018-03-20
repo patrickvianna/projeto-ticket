@@ -3,5 +3,6 @@ angular.module('myApp', [
     'ui.router',
     'toastr',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angularFileUpload'
   ])
