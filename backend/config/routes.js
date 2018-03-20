@@ -25,6 +25,7 @@ module.exports = function (server) {
     protectedApi.post('/getTickets', ticketService.getTickets)
     protectedApi.post('/getProjetos', ticketService.getProjetos)
     protectedApi.post('/getTicketProject', ticketService.getTicketProject)
+    protectedApi.post('/setFile', ticketService.setFile)
 
     const newTicketService = require('../api/ticket/newTicketService')
     protectedApi.post('/setTickets', newTicketService.setTickets)
