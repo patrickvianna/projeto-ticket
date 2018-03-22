@@ -100,3 +100,88 @@
     </div>
 </div>
 </div>
+
+
+<br/>
+<br/>
+<br/>
+
+<div class="container" ng-controller="AppCtrl">
+    <div class="jumbotron">
+      <div class="jumbotron-body">
+        <h1>Angular Upload</h1>
+        <p>Upload files using FormData, fall back to iframe upload when FormData isn't supported</p>
+        <ul>
+          <li>Works in all browsers</li>
+          <li>Lightweight</li>
+          <li>No dependency on jQuery</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="alert alert-info" ng-show="responseData">
+      <strong>Last upload response</strong>
+      {{responseData | json}}
+    </div>
+
+    <div class="panel panel-default" ng-controller="SimpleCtrl as sc">
+      <div class="panel-heading">
+        <h3 class="panel-title">Simple Example</h3>
+      </div>
+      <div class="panel-body">
+        <upload-button
+          class="btn btn-primary btn-upload"
+          url='http://localhost:3003/api/setFile'
+          on-success="onGlobalSuccess(response)"
+          on-upload="onUpload(files)"
+        >Fileupload</upload-button>
+
+        <input name="myFile" type="file" ng-model="sc.arquivo"  /> <!-- file-model="sc.arquivo"-->
+        <a lass="btn btn-primary btn-block" ng-click="sc.teste()">UPLOAD</a>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-controller="AdvancedMarkupCtrl">
+      <div class="panel-heading">
+        <h3 class="panel-title">Advanced Markup Example</h3>
+      </div>
+      <div class="panel-body">
+        <div class="checkbox">
+          <label for="allow-forceiframe">
+            <input id="allow-forceiframe" type="checkbox" ng-model="forceIframeUpload" /> Force IFrame upload
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label for="allow-multiple">
+            <input id="allow-multiple" type="checkbox" ng-model="allowMultiple" /> Allow Multiple (only works with FormData upload)
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="accept-mimetypes">Allowed mimetypes. example "image/jpeg,application/pdf" the accept attribute on upload-button also allows for a javascript array of mimetypes</label>
+          <input id="accept-mimetypes" class="form-control" type="text" ng-model="acceptTypes" />
+        </div>
+
+        <upload-button
+          class="btn btn-primary btn-upload"
+          url="/upload"
+          param="file"
+          accept="acceptTypes"
+          multiple="allowMultiple"
+          force-iframe-upload="forceIframeUpload"
+          data="uploadData"
+          on-upload="onUpload(files)"
+          on-success="onGlobalSuccess(response)"
+          on-error="onError(response)"
+          on-complete="onComplete(response)"
+        >Fileupload</div>
+      </upload-button>
+    </div>
+
+    <h4 class="m-lg">Uploaded files</h4>
+    <div class="list-group">
+      <a class="list-group-item" ng-href="/uploads/{{file}}" download ng-repeat="file in uploads">{{file}}</a>
+    </div>
+  </div>

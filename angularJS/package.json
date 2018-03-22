@@ -34,6 +34,7 @@
   "dependencies": {
     "angular-bootstrap": "^0.12.2",
     "angular-touch": "^1.6.8",
-    "angular-ui-bootstrap": "^2.5.6"
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-upload": "^1.0.13"
   }
 }

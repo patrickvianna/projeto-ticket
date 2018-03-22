@@ -213,3 +213,72 @@ function TicketController($scope, $http, $location, consts, $state, Msg, $q, $ro
 
 }
 })()
+
+angular.module('myApp').controller('AppCtrl', ['$scope', '$http','consts', function ($scope, $http, consts) {
+    // App variable to show the uploaded response
+    $scope.responseData = undefined;
+    // Get initial uploads and populate list
+    $http({
+      method: 'post',
+      url: `${consts.apiUrl}/setFile`,
+      cache: false
+    }).then(function (response) {
+      $scope.uploads = response.data;
+    });
+    // Global handler for onSuccess that adds the uploaded files to the list
+    $scope.onGlobalSuccess = function (response) {
+      console.log('AppCtrl.onSuccess', response);
+      $scope.responseData = response.data;
+      $scope.uploads = $scope.uploads.concat(response.data.files);
+    };
+  }]);
+
+
+  angular.module('myApp').controller('SimpleCtrl', ['$scope', '$http', 'consts', function ($scope, $http, consts) {
+    // Nothing special needed from the controller
+    const vm = this
+
+    vm.arquivo = null
+
+    let vr = {
+        arquivo : null
+    }
+    vm.teste = () => {
+        console.dir(vm.arquivo)
+        console.log(vm.arquivo)
+        console.log(vm.myFile)
+        console.log($scope.myFile)
+        vr.arquivo = vm.arquivo
+        $http.post(`${consts.apiUrl}/setFile`, vr)
+        .then(resp => {
+            console.log('voltou')
+        }).catch(function (resp) {
+            
+        })
+    }
+  }]);
+
+
+  angular.module('myApp').controller('AdvancedMarkupCtrl', ['$scope', '$http', function ($scope, $http) {
+    // Valid mimetypes
+    $scope.acceptTypes = 'image/*,application/pdf';
+    // Data to be sent to the server with the upload request
+    $scope.uploadData = {
+      myformdata: 'hello world'
+    };
+    $scope.onUpload = function (files) {
+      console.log('AdvancedMarkupCtrl.onUpload', files);
+    };
+    $scope.onError = function (response) {
+      console.error('AdvancedMarkupCtrl.onError', response);
+      $scope.responseData = response.data;
+    };
+    $scope.onComplete = function (response) {
+      console.log('AdvancedMarkupCtrl.onComplete', response);
+      $scope.responseData = response.data;
+    };
+  }]);
+  // Start it up
+  /*angular.element(document).ready(function () {
+    angular.bootstrap(document, ['app']);
+  });*/

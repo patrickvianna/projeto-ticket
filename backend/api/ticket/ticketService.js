@@ -110,6 +110,7 @@ const getTarefas = (projetos, init, max) => {
 const setFile = (req, res, next) => {
     console.log(req.route)
     console.log(req.body)
+    console.log(req.file)
     
     res.status(200).send()
 }

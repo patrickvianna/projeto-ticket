@@ -39,7 +39,7 @@ angular.module('myApp')
                                     <h4> <b>Prioridade:</b> {{ ::$ctrl.tarefa.priority.name }} </h4>
                                 </div>
                                 <div class="col-xs-6 col-md-2">
-                                    <h4> <b>%</b> {{ ::$ctrl.tarefa.done_ratio }} </h4>
+                                    <h4> {{ ::$ctrl.tarefa.done_ratio }} <b>%</b> </h4>
                                 </div>
                             </div>
                             <!--div class="row">
