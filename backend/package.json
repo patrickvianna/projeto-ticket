@@ -10,7 +10,7 @@
   "author": "Leonardo Leitão",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcrypt": "2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
@@ -21,6 +21,6 @@
     "request": "^2.83.0"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.17.5"
   }
 }
