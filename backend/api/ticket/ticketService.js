@@ -2,11 +2,12 @@ const _ = require('lodash')
 const http = require('http')
 const request = require('request')
 var promise = require('bluebird')
+const web = require('../../config/web.config')
 
 const getTickets =  (req, res, next) => {
     const idUser = req.body.id || ''
 
-    request.get("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+    request.get(`${web.url}issues${web.key}` , 
     function (error, response, body) {
         if(error) {
             return error
@@ -25,7 +26,7 @@ const getProjetos = (req, res, next) => {
 }
 
 const getTicketProject = (req, res, next) => {
-    const idUser = req.body.idUser.id || ''
+    const idUser = req.body.idUser || ''
     let init = req.body.init || ''
     const max = req.body.max || ''
     const project = req.body.project
@@ -33,7 +34,7 @@ const getTicketProject = (req, res, next) => {
     init *= 10    
     
     let url = `&offset=${init}&limit=${max}&project_id=${project}`
-    request.get("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" + url, 
+    request.get(`${web.url}issues${web.key}${url}`, 
     function (error, response, body) {
         if(error) {
             reject(error)
@@ -46,7 +47,7 @@ const getTicketProject = (req, res, next) => {
 
 const getAllProjects = () =>{
     return new Promise((resolve, reject) => {
-        request.get("http://redmine:81/redmine/projects.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+        request.get(`${web.url}projects${web.key}` , 
         function (error, response, body) {
             if(error) {
                 reject(error)
@@ -65,7 +66,7 @@ const comparaProjetos = (projetos, idUser) => {
         console.log('/////////////////////-------------------------')
         for(let i=0; i < projetos.length; i++)
         {            
-            request.get(`http://redmine:81/redmine/projects/${projetos[i].id}/memberships.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238` , 
+            request.get(`${web.url}projects/${projetos[i].id}/memberships${web.key}` , 
             
             function (error, response, body) {
             if(error) {
@@ -96,7 +97,7 @@ const getTarefas = (projetos, init, max) => {
     return new Promise((resolve, reject) => {
         let tarefas = new Array()
         let url = `&offset=${init}&limit=${max}&project_id=${projetos[i].id}`
-        request.get("http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" + url, 
+        request.get(`${web.url}issues${web.key}${url}`,
         function (error, response, body) {
             if(error) {
                 reject(error)
@@ -106,5 +107,15 @@ const getTarefas = (projetos, init, max) => {
         })
     })
 }
+const getUsers = (req, res, next) => {
+    request.get(`${web.url}users${web.key}`,
+        function (error, response, body) {
+            if(error) {
+                reject(error)
+            }
+            const data =  JSON.parse(body)
+            res.send(data)
+        })
+}
 
-module.exports = { getTickets, getProjetos, getTicketProject }
+module.exports = { getTickets, getProjetos, getTicketProject, getUsers }

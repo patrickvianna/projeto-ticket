@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const env = require('../../.env')*/
 const http = require('http')
 const request = require('request')
+const web = require('../../config/web.config')
 
 
 const setTickets = (req, res, next) => {
@@ -25,7 +26,7 @@ const setTickets = (req, res, next) => {
 
     console.log(req.body)
     //request.get(`redmine:81/redmine/users/${user}.json?include=memberships?key=683ad157ea69a8e9d8b5db20782b92fd1267e238` ,
-    request.get("http://redmine:81/redmine/users/6.json?key=1ace348514d8992b4cf46a632a6aa837fc38e520",
+    request.get(`${web.url}users/${user}${web.key}`,
     function (error, response, body) {
         if(error) {
             res.status(500).send(error)
@@ -35,7 +36,7 @@ const setTickets = (req, res, next) => {
         request(
             {
             method:'POST',
-            url: `http://redmine:81/redmine/issues.json?key=${key}`,
+            url: `${web.url}issues${key}`,
             //url:"http://redmine:81/redmine/issues.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238",
             form: {
                 "issue": {
@@ -65,7 +66,7 @@ const setTickets = (req, res, next) => {
 
 const getTipo = (req, res, next) => {
     return new Promise((resolve, reject) => {
-        request.get("http://redmine:81/redmine/trackers.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" ,
+        request.get(`${web.url}trackers${web.key}` ,
         function (error, response, body) {
             if(error) {
                 reject(error)
