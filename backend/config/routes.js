@@ -1,6 +1,7 @@
 const express = require('express')
 const auth = require('./auth')
 
+
 module.exports = function (server) {
 
     /*
@@ -8,6 +9,7 @@ module.exports = function (server) {
      */
     const openApi = express.Router()
     server.use('/oapi', openApi)
+    
 
     const AuthService = require('../api/user/authService')
     openApi.post('/login', AuthService.login)
@@ -25,6 +27,8 @@ module.exports = function (server) {
     protectedApi.post('/getTickets', ticketService.getTickets)
     protectedApi.post('/getProjetos', ticketService.getProjetos)
     protectedApi.post('/getTicketProject', ticketService.getTicketProject)
+
+    protectedApi.post('/uploadFile', ticketService.uploadFiles)
 
     const newTicketService = require('../api/ticket/newTicketService')
     protectedApi.post('/setTickets', newTicketService.setTickets)

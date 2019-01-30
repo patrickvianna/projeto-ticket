@@ -3,6 +3,7 @@ const http = require('http')
 const request = require('request')
 var promise = require('bluebird')
 
+
 const getTickets =  (req, res, next) => {
     const idUser = req.body.id || ''
 
@@ -18,6 +19,7 @@ const getTickets =  (req, res, next) => {
 
 const getProjetos = (req, res, next) => {
     const idUser = req.body.id || ''
+    console.log(idUser)
     let projetos = new Array()
     projetos = getAllProjects()
     .then(result => comparaProjetos(result, idUser))
@@ -107,4 +109,15 @@ const getTarefas = (projetos, init, max) => {
     })
 }
 
-module.exports = { getTickets, getProjetos, getTicketProject }
+const uploadFiles = (req, res) => {
+    console.log('entrou')
+    
+    if(req.body.file){
+        console.log(req.body.file)
+    }
+    console.log(req.body)
+    console.log(req.files)
+    res.status(200).send("Ok")
+}
+
+module.exports = { getTickets, getProjetos, getTicketProject, uploadFiles }
