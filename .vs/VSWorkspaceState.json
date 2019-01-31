@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\angularJS",
+    "\\backend",
+    "\\backend\\api",
+    "\\backend\\api\\ticket",
+    "\\backend\\api\\user"
+  ],
+  "SelectedNode": "\\backend\\api\\ticket\\ticketService.js",
+  "PreviewInSolutionExplorer": false
+}

@@ -22,7 +22,7 @@ const getProjetos = (req, res, next) => {
     console.log(idUser)
     let projetos = new Array()
     projetos = getAllProjects()
-    .then(result => comparaProjetos(result, idUser))
+    //.then(result => comparaProjetos(result, idUser))
     .then(result => res.send(result))
 }
 
@@ -48,7 +48,7 @@ const getTicketProject = (req, res, next) => {
 
 const getAllProjects = () =>{
     return new Promise((resolve, reject) => {
-        request.get("http://redmine:81/redmine/projects.json?key=683ad157ea69a8e9d8b5db20782b92fd1267e238" , 
+        request.get("http://timbiras:81/redmine/projects.json?key=0e7660fdd43bb1095d627779e475cd514a4afc94" , 
         function (error, response, body) {
             if(error) {
                 reject(error)
